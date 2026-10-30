@@ -11,6 +11,7 @@ const membersAdmin = fileURLToPath(new URL("./src/plugins/members/admin.tsx", im
 const pagesAdmin = fileURLToPath(new URL("./src/plugins/pages/admin.tsx", import.meta.url));
 
 const nodeRuntime = process.env.EMDASH_RUNTIME === "node";
+const dataDirectory = process.env.TECHIES_DATA_DIR || "/data";
 const adapter = nodeRuntime
 	? (await import("@astrojs/node")).default({ mode: "standalone" })
 	: cloudflare();
@@ -25,7 +26,7 @@ export default defineConfig({
 		])),
 	},
 	adapter,
-	...(nodeRuntime ? { session: { driver: sessionDrivers.fs({ base: "/data/sessions" }) } } : {}),
+	...(nodeRuntime ? { session: { driver: sessionDrivers.fs({ base: `${dataDirectory}/sessions` }) } } : {}),
 	image: {
 		// ponytail: serve CMS originals; enable Cloudflare optimisation once IMAGES is provisioned.
 		service: passthroughImageService(),
@@ -48,9 +49,9 @@ export default defineConfig({
 				entrypoint: fileURLToPath(new URL("./src/plugins/pages/index.ts", import.meta.url)),
 				adminEntry: pagesAdmin, options: { adminEntry: pagesAdmin },
 			}],
-			database: nodeRuntime ? sqlite({ url: "file:/data/techies.db" }) : d1({ binding: "DB", session: "auto" }),
+			database: nodeRuntime ? sqlite({ url: `file:${dataDirectory}/techies.db` }) : d1({ binding: "DB", session: "auto" }),
 			storage: nodeRuntime
-				? local({ directory: "/data/uploads", baseUrl: "/_emdash/api/media/file" })
+				? local({ directory: `${dataDirectory}/uploads`, baseUrl: "/_emdash/api/media/file" })
 				: r2({ binding: "MEDIA" }),
 		}),
 	],

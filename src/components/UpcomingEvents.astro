@@ -37,7 +37,7 @@ const timeFormat = new Intl.DateTimeFormat("en-SG", { hour: "numeric", minute: "
       <time datetime={event.start_at}><strong>{dateFormat.format(new Date(event.start_at))}</strong><span>{timeFormat.format(new Date(event.start_at))} SGT</span></time>
       <div class="event-artwork">{typeof event.cover_url === "string" && event.cover_url.startsWith("https://images.lumacdn.com/") && <Image image={{ id: "", src: event.cover_url, alt: "" }} width={112} height={112} loading="lazy" />}</div>
       <div class="event-details"><h3>{event.name}</h3><p>{event.location_type === "online" ? "Online" : event.geo_address_visibility === "public" ? event.geo_address_info?.address || "Venue details on Luma" : "Venue details on Luma"}</p></div>
-      <span class="event-action">View event <span aria-hidden="true">↗</span></span>
+      <span class="event-action">View event</span>
     </a>
   )) : <p class="calendar-empty">{unavailable ? "The live calendar couldn’t load. Open the full Luma calendar for upcoming sessions." : "No upcoming sessions yet. Check the Luma calendar for updates."}</p>}
 </div>

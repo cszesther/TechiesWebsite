@@ -14,7 +14,8 @@
     "deploy": "astro build && wrangler deploy",
     "typecheck": "astro check",
     "design:check": ".opencode/skills/impeccable/scripts/impeccable detect src/",
-    "design:check:site": ".opencode/skills/impeccable/scripts/impeccable detect http://localhost:4321/ http://localhost:4321/events http://localhost:4321/people http://localhost:4321/posts http://localhost:4321/posts/roast-7"
+    "design:check:site": ".opencode/skills/impeccable/scripts/impeccable detect http://localhost:4321/ http://localhost:4321/events http://localhost:4321/people http://localhost:4321/posts http://localhost:4321/posts/roast-7",
+    "dev:isolated": "node scripts/preview-dev.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.1",

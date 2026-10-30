@@ -29,8 +29,8 @@ if (posts && Astro.cache?.enabled) Astro.cache.set(posts.cacheHint);
           <Heading id={headingId}>{value.heading}</Heading>
           {value.intro && <p class="hero-intro">{value.intro}</p>}
           <div class="hero-actions">
-            {link && label && <a class="button" href={link}>{label} <span aria-hidden="true">↗</span></a>}
-            {value.secondary_url && value.secondary_label && <a class="text-link" href={sanitizeHref(value.secondary_url)}>{value.secondary_label} <span aria-hidden="true">↓</span></a>}
+            {link && label && <a class="button" href={link}>{label}</a>}
+            {value.secondary_url && value.secondary_label && <a class="text-link" href={sanitizeHref(value.secondary_url)}>{value.secondary_label}</a>}
           </div>
           {value.note && <p class="hero-note"><span aria-hidden="true">&gt;</span> {value.note}</p>}
         </div>
@@ -52,14 +52,14 @@ if (posts && Astro.cache?.enabled) Astro.cache.set(posts.cacheHint);
         <div class:list={["items", value.layout === "columns" ? "columns" : "rows"]}>
           {value.items?.map(item => <article><h3>{item.title}</h3>{item.description && <p>{item.description}</p>}</article>)}
         </div>
-        {link && label && <a class="text-link section-link" href={link}>{label} <span aria-hidden="true">↗</span></a>}
+        {link && label && <a class="text-link section-link" href={link}>{label}</a>}
       </>
     ) : value._type === "page_images" ? (
       <div class:list={["image-section", { split: value.layout === "left" || value.layout === "right", "image-left": value.layout === "left" }]}>
         <div class="image-copy">
           {value.heading && <h2 id={headingId}>{value.heading}</h2>}
           {value.intro && <p>{value.intro}</p>}
-          {link && label && <a class="text-link" href={link}>{label} <span aria-hidden="true">↗</span></a>}
+          {link && label && <a class="text-link" href={link}>{label}</a>}
         </div>
         {(value.images?.length ?? 0) > 0 && (value.layout === "collage" ? <HangoutCollage images={(value.images ?? []).map(item => item.image).filter(Boolean)} /> : (
           <div class="images">{value.images?.map(item => item.image && <Image image={item.image} loading="lazy" />)}</div>
@@ -68,17 +68,17 @@ if (posts && Astro.cache?.enabled) Astro.cache.set(posts.cacheHint);
     ) : value._type === "page_cta" ? (
       <div class:list={["cta", { split: value.layout === "split" }]}>
         <div>{value.heading && <h2 id={headingId}>{value.heading}</h2>}{value.note && <p class="cta-note">{value.note}</p>}</div>
-        <div class="cta-copy">{value.intro && <p>{value.intro}</p>}{link && label && <a class:list={["button", { secondary: value.layout === "split" }]} href={link}>{label} <span aria-hidden="true">↗</span></a>}</div>
+        <div class="cta-copy">{value.intro && <p>{value.intro}</p>}{link && label && <a class:list={["button", { secondary: value.layout === "split" }]} href={link}>{label}</a>}</div>
       </div>
     ) : value._type === "page_posts" ? (
       <>
-        <div class="section-heading">{value.heading && <h2 id={headingId}>{value.heading}</h2>}{link && label && <a class="text-link" href={link}>{label} <span aria-hidden="true">↗</span></a>}</div>
+        <div class="section-heading">{value.heading && <h2 id={headingId}>{value.heading}</h2>}{link && label && <a class="text-link" href={link}>{label}</a>}</div>
         <div class="card-grid">{posts?.entries.map(post => <PostCard post={post} heading="h3" />)}</div>
         {posts?.entries.length === 0 && <p>No posts published yet.</p>}
       </>
     ) : value._type === "page_events" && (
       <>
-        <div class="section-heading">{value.heading && <h2 id={headingId}>{value.heading}</h2>}<div>{value.intro && <p>{value.intro}</p>}{link && label && <a class="text-link section-link" href={link}>{label} <span aria-hidden="true">↗</span></a>}</div></div>
+        <div class="section-heading">{value.heading && <h2 id={headingId}>{value.heading}</h2>}<div>{value.intro && <p>{value.intro}</p>}{link && label && <a class="text-link section-link" href={link}>{label}</a>}</div></div>
         <UpcomingEvents />
         {value.note && <p class="calendar-note">{value.note}</p>}
       </>

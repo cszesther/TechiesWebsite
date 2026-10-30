@@ -78,8 +78,8 @@ export function mergePeople(team: PersonProfile[], teamMembers: PersonProfile[],
   return [...(firstPage ? exco : []), ...otherMembers];
 }
 
-export function presentationRecaps(recaps: Member["recaps"] = []) {
-  return recaps.map(block => {
+export function presentationRecaps(recaps: Member["recaps"] | null = []) {
+  return (recaps ?? []).map(block => {
     if (!Array.isArray(block.children)) return block;
     return { ...block, children: block.children.map(span => ({
       ...span,

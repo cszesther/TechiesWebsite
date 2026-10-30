@@ -25,3 +25,7 @@ data.db
 .impeccable/live/sessions/
 .impeccable/live/previews/
 .impeccable/live/cache/
+
+# Isolated redesign preview: local database, uploads and sessions
+.preview/
+output/playwright/

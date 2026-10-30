@@ -55,7 +55,7 @@ const pageCtx = createPublicPageContext({
 	description: pageDescription,
 	canonical: new URL(canonical ?? (Astro.url.pathname.replace(/\/$/, "") || "/"), siteUrl).href,
 	image: new URL(pageImage, siteUrl).href,
-	seo: { robots },
+	seo: { robots: process.env.TECHIES_PREVIEW === "1" ? "noindex, nofollow" : robots },
 	articleMeta,
 	siteUrl,
 	content,
@@ -107,9 +107,9 @@ const pageCtx = createPublicPageContext({
 						<img src={siteLogo?.url || "/brand/techies-wordmark.png"} alt={siteLogo?.alt || "Techies"} width="155" loading="lazy" />
 						<p>A 3rd space for devs, dev-adjacents, and technically curious people to geek out.</p>
 					</div>
-					<div class="footer-column"><h2>Get in the room</h2><a href="https://luma.com/APACtechies">Luma calendar ↗</a><a href="/events">Our event series</a><a href="/#about">About Techies</a><a href="/#audience">Who’s in the room</a></div>
+					<div class="footer-column"><h2>Get in the room</h2><a href="https://luma.com/APACtechies">Luma calendar</a><a href="/events">Our event series</a><a href="/#about">About Techies</a><a href="/#audience">Who’s in the room</a></div>
 					<div class="footer-column"><h2>The community</h2><a href="/events#recaps">Event recaps</a><a href="/category/partnership-announcement">Partnership</a><a href="/campaigns">Giveaways</a><a href="/people#members">Member showcase</a><a href="/people#exco">Meet the Exco</a><a href="/#podcast">Listen to Season 1</a></div>
-					<div class="footer-column"><h2>Keep in touch</h2><a href="https://linkedin.com/company/apac-techies">LinkedIn ↗</a><a href="https://linktr.ee/techiesapac">Linktree ↗</a></div>
+					<div class="footer-column"><h2>Keep in touch</h2><a href="https://linkedin.com/company/apac-techies">LinkedIn</a><a href="https://linktr.ee/techiesapac">Linktree</a></div>
 				</div>
 				<div class="footer-bottom"><span>© {new Date().getFullYear()} Techies APAC</span><span>Serious about the craft; relaxed with the people.</span></div>
 			</div>

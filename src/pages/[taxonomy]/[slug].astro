@@ -48,7 +48,7 @@ if (Astro.cache?.enabled) {
 
 <Base title={isTag ? `${term.label} Recaps & Discussions` : pageTitle} description={description} canonical={`${path}${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`}>
 	<div class="container page-content">
-	<header class="page-heading">{isTag && <nav aria-label="Back to posts"><a class="back-link" href="/posts">← All posts</a></nav>}<h1>{pageTitle}</h1><p>{isTag ? "Follow the decisions and discussions behind this topic." : term.slug === "partnership-announcement" ? "Community partnerships and offers for Techies." : "Real conversations, written down. Decisions, constraints, and lessons from the room."}</p></header>
+	<header class="page-heading">{isTag && <nav aria-label="Back to posts"><a class="back-link" href="/posts">All posts</a></nav>}<h1>{pageTitle}</h1><p>{isTag ? "Follow the decisions and discussions behind this topic." : term.slug === "partnership-announcement" ? "Community partnerships and offers for Techies." : "Real conversations, written down. Decisions, constraints, and lessons from the room."}</p></header>
 	{posts.length ? <div class="card-grid">{posts.map(post => <PostCard post={post} />)}</div> : <p>{isTag ? "No posts with this tag yet." : "No posts in this category yet."}</p>}
 	<nav class="pagination" aria-label="Pagination">
 		{cursor && <a href={path}>First page</a>}
