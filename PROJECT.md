@@ -1,5 +1,9 @@
 # Techies design preview
 
+## Chat responsibilities
+- This original chat is now design planning and approval only. Code implementation is assigned to Techies website implementation (01a18c92-f769-77a0-a876-2b48a3622672), a fresh chat requested by the user. It completed read-only orientation and is waiting for the approved specification. See IMPLEMENTATION-HANDOFF.md.
+- DESIGN-SYSTEM-AUDIT.md inventories current source, including prototype differences; it is not an approved replacement specification. No further application changes during the design-system audit.
+
 ## Current state, 30 October 2026
 - Upstream: SerStableLad/TechiesWebsite, base Techies-Revamp-EM-Dash.
 - Fork: cszesther/TechiesWebsite; branch codex/techies-design-preview.
