@@ -1,0 +1,14 @@
+---
+import { headingId } from "../utils/article";
+const { node, index, isInline: _, ...attrs } = Astro.props;
+type BlockTag = "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "blockquote";
+const isHeading = /^h[1-6]$/.test(node.style || "");
+const Tag: BlockTag = (node.style === "h1" ? "h2" : /^h[2-6]$/.test(node.style || "") || node.style === "blockquote" ? node.style : "p") as BlockTag;
+const alignment = ["center", "right", "justify"].includes(node.textAlign) ? `has-text-align-${node.textAlign}` : undefined;
+---
+<Tag {...attrs} class={alignment} id={isHeading ? headingId(node, index) : undefined}><slot /></Tag>
+<style>
+  .has-text-align-center { text-align: center; }
+  .has-text-align-right { text-align: right; }
+  .has-text-align-justify { text-align: justify; }
+</style>

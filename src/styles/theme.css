@@ -6,7 +6,8 @@
   --surface: #111118;
   --card: #16161f;
   --border: #252530;
-  --text: #e8e8ed;
+  --text: #fbf8ef;
+  --reading: #c7c5c0;
   --secondary: #9898a8;
   --orange: #f97316;
   --orange-hover: #ea580c;
@@ -84,13 +85,13 @@ strong { color: var(--text); }
 .empty-state p { max-width: 640px; margin-bottom: 26px; }
 .page-content { padding-bottom: 88px; }
 .pagination { display: flex; gap: 24px; padding-top: 32px; }
-.prose { max-width: 620px; font-size: 18px; line-height: 1.7; margin-inline: auto; padding-block: 40px 80px; overflow-wrap: anywhere; }
+.prose { max-width: 70ch; font-size: 18px; line-height: 1.7; margin-inline: auto; padding-block: 40px 80px; overflow-wrap: anywhere; }
 .prose h1 { font-size: 42px; }
 .prose h2 { font-size: 32px; padding-top: 30px; }
 .prose h3 { font-size: 24px; padding-top: 18px; }
-.prose p { color: #b8b8c6; }
+.prose p { color: var(--reading); }
 .prose > * + * { margin-top: 20px; }
-.prose li { color: #b8b8c6; margin-block: 8px; }
+.prose li { color: var(--reading); margin-block: 8px; }
 .prose a { color: var(--orange); text-decoration: underline; text-underline-offset: 4px; }
 .prose code { background: var(--card); color: var(--text); font-family: var(--mono); font-size: .85em; padding: 3px 5px; border-radius: 4px; }
 .prose pre { white-space: pre-wrap; padding: 24px; background: var(--card); border-radius: 12px; }

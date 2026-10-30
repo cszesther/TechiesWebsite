@@ -8,13 +8,18 @@ colors:
   surface: "#111118"
   card: "#16161f"
   border: "#252530"
-  text: "#e8e8ed"
+  text: "#fbf8ef"
   secondary: "#9898a8"
   control-border: "#686878"
   red: "#ef4444"
-  prose-text: "#b8b8c6"
+  prose-text: "#c7c5c0"
   campaign-error: "#ffb7a0"
 typography:
+  article-display:
+    fontFamily: "Inter, sans-serif"
+    fontSize: "clamp(36px, 4.5vw, 48px)"
+    fontWeight: 800
+    lineHeight: 1.12
   display:
     fontFamily: "Inter, sans-serif"
     fontSize: "clamp(40px, 5.4vw, 64px)"
@@ -280,3 +285,7 @@ These are scoped source/component states, not new global tokens or stakeholder a
 - Don't turn the campaign-specific layout into a mandatory template for every public page.
 
 Evidence: `AGENTS.md:9–11`, `BRAND_GUIDE.md:209–241`, `.impeccable/surfaces/campaigns.md:9–15`, and the source references above. Pre-existing template prose in `AGENTS.md:55–106` describes an unstyled starting point and is superseded by its custom-design guidance and current code; it was not repaired in this documentation-only pass.
+
+## Article prototype, 30 October 2026
+
+Approved overhaul retains Inter and JetBrains Mono. Shared heading text is warm cream (#fbf8ef), reading text #c7c5c0. Article H1 is 36–48px; introduction 18–20px; body 18px/1.7 in a roughly 70-character column; metadata 14px. Contents links sit beside the article on desktop and above it on mobile. Images use an 8px radius, uncropped lead photo and full-column speaker imagery. Speakers are Featuring credits; actual authorship remains native byline metadata.

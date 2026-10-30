@@ -4,8 +4,13 @@ import {
 	getSeoMeta,
 	decodeSlug,
 	getSiteSettings,
+	getEditMeta,
 } from "emdash";
 import { Image, PortableText } from "emdash/ui";
+import ArticleBlock from "../../components/ArticleBlock.astro";
+import ArticleContents from "../../components/ArticleContents.astro";
+import LinkedInLogo from "../../components/LinkedInLogo";
+import { articleTitle, articleOutline, withoutRepeatedLead } from "../../utils/article";
 import Base from "../../layouts/Base.astro";
 import { resolveStarterSiteIdentity } from "../../utils/site-identity";
 import { summarize } from "../../utils/seo";
@@ -40,8 +45,17 @@ const seo = getSeoMeta(post, {
 // Taxonomy terms are already hydrated onto the entry by getEmDashEntry.
 const tags = post.data.terms?.tag ?? [];
 const categories = post.data.terms?.category ?? [];
-const dateValue = post.data.event_date || post.data.publishedAt;
-const date = dateValue ? new Date(dateValue) : null;
+const title = articleTitle(post.data.title);
+const outline = articleOutline(post.data.content);
+const speakers = outline.filter(item => item.profile);
+const published = post.data.publishedAt;
+const eventDate = post.data.event_date ? new Date(post.data.event_date) : null;
+const formatDate = (value: Date) => value.toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" });
+const sameDay = published && eventDate && formatDate(published) === formatDate(eventDate);
+// New optional field is additive; legacy source_url remains its original meaning.
+const extra = post.data as typeof post.data & { linkedin_post_url?: string };
+const linkedinUrl = /^https:\/\/(www\.)?linkedin\.com\/(posts\/|feed\/update\/|pulse\/)/.test(extra.linkedin_post_url || "") ? extra.linkedin_post_url : undefined;
+const body = getEditMeta(post.data.content) ? post.data.content : withoutRepeatedLead(post.data.content ?? [], post.data.featured_image?.id);
 ---
 
 <Base
@@ -53,14 +67,19 @@ const date = dateValue ? new Date(dateValue) : null;
 	articleMeta={{ publishedTime: post.data.publishedAt?.toISOString(), modifiedTime: post.data.updatedAt.toISOString(), author: post.data.byline?.displayName }}
 	content={{ collection: "posts", id: post.data.id, slug }}
 >
-	<article class="container">
-		<header class="page-heading">
+	<article class="container article-page">
+		<header class="article-header">
 			<nav aria-label="Back to posts"><a class="back-link" href="/posts">All posts</a></nav>
-			<h1 {...post.edit.title}>{post.data.title}</h1>
+			<div class="article-categories">{categories.map(c => <a href={`/category/${c.slug}`}>{c.label}</a>)}</div>
+			<h1 {...post.edit.title}>{title}</h1>
 			{post.data.excerpt && <p {...post.edit.excerpt}>{post.data.excerpt}</p>}
-			<div class="post-meta metadata">
-				{date && <time datetime={date.toISOString()}>{date.toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Singapore" })}</time>}
-				{categories.map(c => <a href={`/category/${c.slug}`}>{c.label}</a>)}
+			<div class="article-credits">
+				{speakers.length > 0 && <p class="article-speakers"><span>Featuring</span> {speakers.map((speaker, index) => <>{index > 0 && <span aria-hidden="true">, </span>}<a href={speaker.profile}>{speaker.label}</a></>)}</p>}
+				<div class="metadata article-dates">
+					{published && <span>Published <time datetime={published.toISOString()}>{formatDate(published)}</time></span>}
+					{eventDate && !sameDay && <span>Event <time datetime={eventDate.toISOString()}>{formatDate(eventDate)}</time></span>}
+				</div>
+				{linkedinUrl && <a class="article-linkedin" href={linkedinUrl}><LinkedInLogo />View the LinkedIn recap</a>}
 			</div>
 		</header>
 		{
@@ -71,7 +90,9 @@ const date = dateValue ? new Date(dateValue) : null;
 			)
 		}
 
-		<div class="prose"><PortableText value={post.data.content} />
+		<div class:list={["article-layout", { "with-contents": outline.length > 1 }]}>
+		<ArticleContents items={outline} />
+		<div class="prose article-prose"><PortableText value={body} components={{ block: ArticleBlock }} />
 
 		{
 			tags.length > 0 && (
@@ -84,5 +105,40 @@ const date = dateValue ? new Date(dateValue) : null;
 		}
 		{post.data.source_url && <p><a href={post.data.source_url}>Original published recap</a></p>}
 		</div>
+		</div>
 	</article>
 </Base>
+
+<style>
+  .article-page { padding-bottom: 88px; }
+  .article-header { max-width: 840px; margin-inline: auto; padding-block: 48px; }
+  .article-header h1 { font-size: clamp(36px, 4.5vw, 48px); margin-block: 16px 24px; line-height: 1.12; }
+  .article-header > p { font-size: 20px; line-height: 1.6; max-width: 740px; }
+  .article-categories { display: flex; gap: 16px; font-size: 14px; color: var(--orange); }
+  .article-categories a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .article-credits { display: grid; gap: 14px; margin-top: 32px; }
+  .article-speakers { color: var(--text); font-size: 16px; }
+  .article-speakers > span:first-child { color: var(--secondary); margin-right: 8px; }
+  .article-speakers a { text-decoration: underline; text-underline-offset: 4px; }
+  .article-dates { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .article-linkedin { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; width: fit-content; }
+  .article-linkedin:hover { color: var(--orange); }
+  .post-hero { border: 0; max-width: 1000px; margin-inline: auto; }
+  .post-hero :global(img) { border-radius: 8px; width: 100%; height: auto; max-height: 640px; object-fit: contain; background: var(--surface); }
+  .article-layout { max-width: 720px; margin: 56px auto 0; }
+  .article-layout.with-contents { max-width: 1000px; display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: 48px; }
+  .article-prose { width: 100%; max-width: 720px; padding: 0; margin: 0; }
+  .article-prose :global(h2) { padding-top: 16px; margin-top: 48px; scroll-margin-top: 32px; }
+  .article-prose :global(h3) { scroll-margin-top: 32px; }
+  .article-prose :global(figure) { margin-block: 32px; }
+  .article-prose :global(img) { width: 100%; max-height: none; border-radius: 8px; }
+  .article-prose :global(figcaption) { font-size: 14px; line-height: 1.5; text-align: left; }
+  @media (max-width: 900px) {
+    .article-layout.with-contents { display: block; }
+    .article-prose { margin-inline: auto; }
+    .article-header { padding-block: 32px; }
+    .article-header > p { font-size: 18px; }
+    .article-layout { margin-top: 32px; }
+    .article-layout :global(.article-contents) { margin-bottom: 32px; }
+  }
+</style>

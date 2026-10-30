@@ -1,6 +1,6 @@
 # Techies Astro template rebuild
 
-Planning baseline: 30 October 2026. Work on `codex/techies-design-preview` in the `cszesther/TechiesWebsite` fork. Hosted baseline and a recovery checkpoint precede substantial UI changes. Hosting choice is pending: read-only design snapshot with bundled photos, or fully editable hosted CMS with isolated persistent media. The local CMS remains isolated. This document is a plan, not a claim that the new layouts are implemented.
+Planning baseline: 30 October 2026. Work on `codex/techies-design-preview` in the `cszesther/TechiesWebsite` fork. Hosted baseline and a recovery checkpoint precede substantial UI changes. User selected a read-only hosted design snapshot with bundled photos. The local CMS remains isolated. Hosted baseline is verified and the first article prototype is available; other phases below remain planned.
 
 ## Direction and boundaries
 
@@ -88,3 +88,7 @@ Retain accurate canonical/description/Open Graph metadata. Validate one Article/
 Run `pnpm typecheck`, build, source detector and rendered desktop/mobile detector checks against the actual preview origin. `pnpm design:check:site` currently targets port 4321; point equivalent checks at 4331 or the hosted preview rather than accidentally checking another process. Use 390×844 and desktop captures together, fix findings as one batch, then perform at most one confirmation pass. Tests should cover anchor IDs/links, absent fields, data-cleanup dry run and migration idempotency rather than mirror CSS implementation. Exercise at least one ordinary non-event post and a short article as well as Roast #7.
 
 Code recovery uses the named baseline deployment/commit. CMS recovery uses preview content revisions and database/media backup. A renderer rollback does not restore content or undo a destructive schema migration; keep migrations additive. The baseline and redesign must remain reviewable without touching the live Techies Worker or CMS.
+
+## Implementation status
+
+Hosted baseline is saved at Cloudflare version 0eb7e138-041b-48db-bb47-e313d8f98c20 and code commit 431037d1656a5d590341416ac91bbc1f0969c416. First article prototype is hosted at https://techies-design-preview.esther-speakeasy.workers.dev/posts/roast-7/ (version c3674662-ca74-46f7-915c-fb084d564b6c). It includes short-title presentation, source-derived Featuring links, date labels, automatic contents, reading typography and immediate lead-duplicate suppression. It does not migrate schema/content or complete the remaining shell/home/podcast/gallery phases. The optional LinkedIn field has no supplied source URL, so no recap action is displayed.

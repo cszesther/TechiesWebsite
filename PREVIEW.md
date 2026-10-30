@@ -77,8 +77,16 @@ User selected a read-only hosted design preview with bundled photos.
 - `pnpm deploy:design-preview` publishes this snapshot; `python3 scripts/check-design-preview.py` checks the hosted pages/assets, noindex and absent CMS/API. Updates are manual, not automatically deployed by Git pushes.
 - Bundled content is a reference seed, not a fresh live export. The Luma feed returned 429 during capture; the hosted snapshot shows the useful calendar fallback and direct Luma link. It is not a live-updating calendar.
 - Two stale hardcoded supper-image fallback references returned unavailable responses and were removed; the two real seed supper photos remain.
-- Checkpoint in ignored `.preview/checkpoints/hosted-baseline-2026-10-30/` contains a SQLite backup, a public snapshot archive including its referenced media, and version metadata. No sessions/credentials are backed up there.
+- Checkpoint in ignored `.preview/checkpoints/hosted-baseline-2026-10-30/` contains a SQLite backup, a complete uploads archive, a public snapshot archive including its referenced media, and version metadata. No sessions/credentials are backed up there.
 - Restore preview deployment: `pnpm exec wrangler rollback 0eb7e138-041b-48db-bb47-e313d8f98c20 --config wrangler.preview.jsonc`. Git code recovery and local CMS data recovery are separate.
 - Verified 17 page responses and 36 referenced assets, X-Robots-Tag, one H1, no localhost asset URLs, absent CMS/API routes; source typecheck 55 files clean; source plus five-route rendered desktop/mobile detectors passed. Browser inspected mobile/home/article; homepage width 390px matches document width.
 
 See DESIGN-REBUILD-PLAN.md for the staged template overhaul.
+
+## First article prototype
+
+Current deployed version: `c3674662-ca74-46f7-915c-fb084d564b6c`. The baseline recovery version above is retained. Source baseline is commit `431037d1656a5d590341416ac91bbc1f0969c416`.
+
+Shared article renderer now provides short imported Roast titles, source-derived Featuring credits, labelled publication/event dates, a desktop contents sidebar/mobile contents list, consistent reading typography and suppression of the immediate duplicate lead. Source content is unchanged. Optional LinkedIn recap rendering is ready but awaits additive CMS fields and verified URLs. Native BlogPosting metadata remains; contents navigation is not special AEO schema.
+
+Run `node scripts/check-article-template.mjs` for title/anchor/source-credit/non-destructive image checks. Typecheck 58 files, Node build, hosted smoke checks and five-route desktop/mobile detector checks passed. Publication dates in this seeded snapshot reflect import dates; do not treat them as verified original publishing dates. The full homepage, shell, events, podcast and animated gallery remain in the rebuild plan.
