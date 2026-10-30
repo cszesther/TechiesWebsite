@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "techies-design-preview",
+  "account_id": "902b1945bb2efdabd9e922e084a2fcd2",
+  "compatibility_date": "2026-10-30",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": ".preview/site",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

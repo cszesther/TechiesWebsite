@@ -15,7 +15,9 @@
     "typecheck": "astro check",
     "design:check": ".opencode/skills/impeccable/scripts/impeccable detect src/",
     "design:check:site": ".opencode/skills/impeccable/scripts/impeccable detect http://localhost:4321/ http://localhost:4321/events http://localhost:4321/people http://localhost:4321/posts http://localhost:4321/posts/roast-7",
-    "dev:isolated": "node scripts/preview-dev.mjs"
+    "dev:isolated": "node scripts/preview-dev.mjs",
+    "build:design-preview": "node scripts/build-design-preview.mjs",
+    "deploy:design-preview": "wrangler deploy --config wrangler.preview.jsonc"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.1",

@@ -28,3 +28,17 @@
 
 ## Recovery
 Git tracks renderer changes; EmDash revisions track content; database/media backups protect stored records and files. A Git rollback does not restore CMS content. Hosted preview requires separate Worker/D1/R2/KV resources and is not provisioned in this checkpoint.
+
+## Hosted preview decision, 30 October 2026
+- User questions enabling R2. R2 is needed by the current hosted media adapter, not Astro itself. Do not enable R2 or accept billing/terms on the user's behalf.
+- Cloudflare account cszesther has isolated D1 database techies-design-preview (60bf5ec5-aaa6-4800-99a8-920e955fa105), empty at verification. No R2 bucket or hosted preview deployment created.
+- Pending choice: hosted read-only design snapshot with bundled photos and local CMS editing, or fully editable hosted EmDash with a supported persistent media backend. Do not claim a static snapshot tests hosted CMS uploads/auth/revisions.
+- Parallel design plan completed in DESIGN-REBUILD-PLAN.md; implementation of the new shared templates remains pending. User approves changing Base, PostCard, article template and typography.
+- Mobile monitoring: existing local Codex chat is Audit Techies website design; official Codex Remote documentation describes steering connected-computer chats from mobile. This is separate from normal ChatGPT project conversation history; do not create a replacement chat without a request.
+
+## Hosted baseline ready
+- User chose hosted design snapshot with bundled photos; no R2 service required. URL and recovery version are recorded in PREVIEW.md.
+- Export/build/deploy/check scripts implemented; 17 public routes and 30 photos hosted independently. Source typecheck and desktop/mobile checks passed.
+- Saved local database and public/media checkpoint; hosted version 0eb7e138-041b-48db-bb47-e313d8f98c20 is the pre-redesign recovery deployment.
+- D1 created earlier remains unused; static preview binds no database, R2 or sessions. No resources deleted.
+- Beginning first article prototype next; larger home/podcast/gallery stages remain in DESIGN-REBUILD-PLAN.md.

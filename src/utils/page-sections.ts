@@ -25,8 +25,6 @@ export function homeSections(home: Partial<Page>): PageLayoutBlock[] {
     { ...block("page_images", "supper"), heading: "Come for the event.\nStay for the company.", intro: home.supper_copy, layout: "collage", surface: true, link_label: "Meet the community", link_url: "/members", images: [
       ...(home.supper_photo ? [{ image: home.supper_photo }] : []),
       ...(home.supper_photo_two ? [{ image: home.supper_photo_two }] : []),
-      { image: { id: "01M4W903A834QZ0AVM2HJVPXPC", src: "/_emdash/api/media/file/01M4W903A7WXGZMMD32ZPYWH46.01M4W903C135X14N6THYA9FY2K.jpg", alt: "Techies members chatting around tables at a post-event hangout", width: 1280, height: 960 } },
-      { image: { id: "01M4W903A8MB40GRN0062VPDRQ", src: "/_emdash/api/media/file/01M4W903A8GWB4H3NP354Y1ASC.01M4W903C1CY8RC1335N2M1GVZ.jpeg", alt: "Techies members gathered along restaurant tables for supper after an event", width: 1280, height: 960 } },
     ] },
     { ...block("page_events", "upcoming"), anchor: "upcoming", heading: "What’s next?", intro: "The live calendar updates when a session is published.", link_label: "Open the Luma calendar", link_url: "https://luma.com/APACtechies", note: "Registration and any approval requirements are shown on each event’s Luma page." },
     { ...block("page_cta", "podcast"), anchor: "podcast", heading: "Do You Even Build", note: "On pause · Season 1 complete", intro: home.podcast_copy, link_label: "Listen to Season 1", link_url: home.podcast_url || "https://open.spotify.com/show/3JhNpERWFXWIjGcmXDvu3f", layout: "split" },
